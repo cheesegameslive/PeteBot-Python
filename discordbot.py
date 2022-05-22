@@ -1,11 +1,6 @@
-import discord
 from PIL import Image
 import os
 import json
-import functions
-import requests
-import shutil
-import asyncio
 from discord.ext import commands
 
 global sb
@@ -29,8 +24,6 @@ bot = commands.Bot(command_prefix='$')
 for filename in os.listdir('./commands'):#load all cogs
   if filename.endswith('.py'):
     bot.load_extension(f'commands.{filename[:-3]}')
-#   else:
-#     print(f'Unable to load {filename[:-3]}')
 
 
 

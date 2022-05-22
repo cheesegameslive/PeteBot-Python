@@ -1,5 +1,3 @@
-from tkinter import TRUE
-from turtle import back
 from PIL import Image, ImageFont, ImageDraw, ImageSequence
 import json
 import textwrap
@@ -22,7 +20,7 @@ cycleTextPos = [
     (483, 804),
     (192, 511)]
 ]
-
+    
 fontSize = 40
 lineSpace = 35
 centerW = centerH = 400
