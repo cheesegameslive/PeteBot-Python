@@ -1,5 +1,6 @@
 from PIL import Image
 import os
+import requests
 import json
 from discord.ext import commands
 
@@ -13,11 +14,11 @@ token = config['token']
 prefix = config['prefix']
 image_types = config['image_types']
 sound_types = config['sound_types']
+tenor = config['tenor']
 
 bubble = Image.open(config['bubble_path']).convert("RGBA")
 
-import os
-from discord.ext import commands
+r = requests.get(f"https://api.tenor.com/v1/anonid?&key={tenor}")
 
 bot = commands.Bot(command_prefix='$')
 
