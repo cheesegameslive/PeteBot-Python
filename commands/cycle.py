@@ -28,6 +28,9 @@ class cycle(commands.Cog):
                         await image_message.attachments[0].save(image_message.attachments[0].filename)
                         centerImg = Image.open(image_message.attachments[0].filename).convert('RGBA')
                         imgName = image_message.attachments[0].filename
+
+
+                        
                 await functions.cycleText(args,ctx.message.id,centerImage = centerImg)
                 await ctx.message.channel.send(file=discord.File(f'cycleedit_{ctx.message.id}.png'),reference=ctx.message)
                 os.remove(f"cycleedit_{ctx.message.id}.png")

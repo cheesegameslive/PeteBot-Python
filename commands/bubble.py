@@ -35,18 +35,24 @@ class bubble(commands.Cog):
                 bottom_image = Image.open(img_name).convert('RGBA')
             elif image_message.content.startswith('https://tenor.com'):
                 img_name = await functions.get_gif(image_message.content)
-                bottom_image = Image.open(img_name)                
+                bottom_image = Image.open(img_name)
+            elif image_message.content.startswith("https://media.discordapp.net"):
+                img_name = image_message.content[-5:]
+
         if bottom_image is not None:
-            if img_name[-3:]=="gif" :
+            size = os.stat(img_name).st_size
+            if size>8e6:
+                await ctx.message.channel.send("Too Large",reference=ctx.message)
+            elif img_name[-3:]=="gif" :
                 gif_name = functions.stackGif(bubble_img,bottom_image,1,img_name)
-            elif img_name[-3:]=="png" or 'jpg' :
+            elif img_name[-3:]=="png" or 'jpg':
                 gif_name = functions.stackImage(bubble_img,bottom_image,1,img_name)
             await ctx.message.channel.send(file=discord.File(gif_name),reference=ctx.message)
             os.remove(gif_name)
             os.remove(img_name)
 
         else:
-            await ctx.message.channel.send("Must include image",reference=ctx.message)
+            await ctx.message.channel.send("Must ",reference=ctx.message)
 
 
 def setup(bot):
