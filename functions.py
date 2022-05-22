@@ -1,7 +1,6 @@
 from PIL import Image, ImageFont, ImageDraw, ImageSequence
 import json
 import textwrap
-from gifpy import Gifpy
 import urllib.request
 import requests
 
