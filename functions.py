@@ -80,11 +80,11 @@ def stackImage(topImg, botImg,w,name, resample=Image.BICUBIC, resize_big_image=T
         dst = Image.new('RGBA', (_botImg.width, _botImg.height+ _topImg.height),color = 0xffffff)
         dst.paste(_botImg,(0,_topImg.height))
         dst.alpha_composite(_topImg)
-        dst.save(f"bubble_{name}")
+        dst.save(f"{name}")
     else:
         _botImg.alpha_composite(_topImg)
-        _botImg.save(f"bubble_{name}")
-    return f"bubble_{name}"
+        _botImg.save(f"{name}")
+    
 
 def stackGif(topImg,backImg,w,name):
     frames = []
@@ -127,3 +127,22 @@ async def get_gif(message):
     return id+".gif"
 
 
+def place_image(x,y,width,height,og_image,new_image,name):
+    name = name+".png"
+    if new_image.height > new_image.width: # portrait
+            scaledW = int(new_image.width * (height / new_image.height))
+            new_image = new_image.resize((scaledW, height))
+    else: # widescr
+            scaledH = int(new_image.height * (width / new_image.width))
+            new_image = new_image.resize((width, scaledH))
+    og_image.alpha_composite(new_image,(x,y))
+    return og_image
+
+def place_text(x,y,img,text):
+    I1 = ImageDraw.Draw(img)
+    myfont = ImageFont.truetype('arial.ttf', 15)
+    t = text.strip()
+    wrapped = textwrap.wrap(t,width=15)
+    for i in range(len(wrapped)):
+        I1.text((x,y+i*13),wrapped[i],fill=(0,0,0),font=myfont)
+    return img
